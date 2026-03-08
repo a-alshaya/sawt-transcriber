@@ -1,4 +1,5 @@
 import argparse
+import glob
 import json
 import os
 import sys
@@ -8,6 +9,33 @@ from src.transcribe import transcribe
 from src.utils import ensure_output_dir, setup_logging
 
 logger = setup_logging()
+
+
+def find_input_file(input_dir: str, prefix: str, label: str) -> str:
+    """
+    Find a file in input_dir whose name starts with prefix and ends with .json.
+    Accepts both exact names (e.g. 'participants.json') and UUID-suffixed names
+    (e.g. 'participants-c389a955-....json'). Exits with an error if not found.
+    """
+    pattern = os.path.join(input_dir, f"{prefix}*.json")
+    matches = glob.glob(pattern)
+    if not matches:
+        logger.error("Missing input file (%s): no file matching '%s*.json' in %s", label, prefix, input_dir)
+        sys.exit(1)
+    if len(matches) > 1:
+        logger.warning("Multiple files match '%s*.json' — using: %s", prefix, matches[0])
+    return matches[0]
+
+
+def find_audio_file(input_dir: str) -> str:
+    """Find any .mp3 file in input_dir."""
+    matches = glob.glob(os.path.join(input_dir, "*.mp3"))
+    if not matches:
+        logger.error("Missing audio file: no .mp3 found in %s", input_dir)
+        sys.exit(1)
+    if len(matches) > 1:
+        logger.warning("Multiple .mp3 files found — using: %s", matches[0])
+    return matches[0]
 
 
 def load_json(path: str, label: str) -> object:
@@ -44,15 +72,13 @@ def main():
 
     ensure_output_dir(output_dir)
 
-    # Load input files
-    participants = load_json(os.path.join(input_dir, "participants.json"), "participants")
-    speaker_timeline = load_json(os.path.join(input_dir, "speaker-timeline.json"), "speaker-timeline")
-    participant_events = load_json(os.path.join(input_dir, "participant-events.json"), "participant-events")
+    # Auto-detect input files by prefix (supports plain and UUID-suffixed filenames)
+    participants = load_json(find_input_file(input_dir, "participants", "participants"), "participants")
+    speaker_timeline = load_json(find_input_file(input_dir, "speaker-timeline", "speaker-timeline"), "speaker-timeline")
+    participant_events = load_json(find_input_file(input_dir, "participant-events", "participant-events"), "participant-events")
+    recall_transcript = load_json(find_input_file(input_dir, "transcript", "recall transcript"), "recall transcript")
 
-    # Load Recall transcript for reference only — included in output as-is
-    recall_transcript = load_json(os.path.join(input_dir, "transcript.json"), "recall transcript")
-
-    audio_path = os.path.join(input_dir, "meeting.mp3")
+    audio_path = find_audio_file(input_dir)
 
     # Step 1: Transcribe with ElevenLabs Scribe v2
     scribe_result = transcribe(audio_path, output_dir, skip=args.skip_transcription)
