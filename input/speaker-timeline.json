@@ -1,0 +1,30 @@
+[
+  {
+    "participant": {
+      "id": "participant-001",
+      "name": "Khaled Adaileh",
+      "is_host": true,
+      "platform": "zoom"
+    },
+    "start_timestamp": {
+      "relative": 0.0
+    },
+    "end_timestamp": {
+      "relative": 45.3
+    }
+  },
+  {
+    "participant": {
+      "id": "participant-002",
+      "name": "Sara Ahmad",
+      "is_host": false,
+      "platform": "zoom"
+    },
+    "start_timestamp": {
+      "relative": 45.3
+    },
+    "end_timestamp": {
+      "relative": 120.0
+    }
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "event": "join",
+    "participant": {
+      "id": "participant-001",
+      "name": "Khaled Adaileh"
+    },
+    "timestamp": {
+      "relative": 0.0
+    }
+  },
+  {
+    "event": "join",
+    "participant": {
+      "id": "participant-002",
+      "name": "Sara Ahmad"
+    },
+    "timestamp": {
+      "relative": 2.5
+    }
+  },
+  {
+    "event": "leave",
+    "participant": {
+      "id": "participant-002",
+      "name": "Sara Ahmad"
+    },
+    "timestamp": {
+      "relative": 120.0
+    }
+  },
+  {
+    "event": "leave",
+    "participant": {
+      "id": "participant-001",
+      "name": "Khaled Adaileh"
+    },
+    "timestamp": {
+      "relative": 121.0
+    }
+  }
+]

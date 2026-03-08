@@ -1,0 +1,14 @@
+[
+  {
+    "id": "participant-001",
+    "name": "Khaled Adaileh",
+    "is_host": true,
+    "platform": "zoom"
+  },
+  {
+    "id": "participant-002",
+    "name": "Sara Ahmad",
+    "is_host": false,
+    "platform": "zoom"
+  }
+]
