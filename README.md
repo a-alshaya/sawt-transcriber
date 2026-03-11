@@ -82,7 +82,7 @@ The tool writes two files to `output/`:
     {
       "start": 0.5,
       "end": 8.2,
-      "speaker": "Khaled Adaileh",
+      "speaker": "Fahad Saad",
       "text": "أهلاً وسهلاً، let's get started."
     },
     {
