@@ -1,0 +1,23 @@
+[
+  {
+    "participant": {
+      "id": 1,
+      "name": "Participant Name",
+      "is_host": true,
+      "platform": "desktop"
+    },
+    "words": [
+      {
+        "text": "Hello",
+        "start_timestamp": {
+          "relative": 1.0,
+          "absolute": "2024-01-01T00:00:01.000000Z"
+        },
+        "end_timestamp": {
+          "relative": 1.4,
+          "absolute": "2024-01-01T00:00:01.400000Z"
+        }
+      }
+    ]
+  }
+]
